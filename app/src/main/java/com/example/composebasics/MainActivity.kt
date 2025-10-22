@@ -16,8 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.composebasics.ui.theme.ComposeBasicsTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,6 +37,27 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun TaskCompletedLayout(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Column(
+            modifier = modifier,
+            verticalArrangement = Arrangement.spacedBy(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            TaskCompletedImage()
+            TaskCompletedText(
+                stringResource(R.string.all_tasks_completed), stringResource(R.string.nice_work)
+            )
+        }
+
+    }
+}
+
+@Composable
 fun TaskCompletedImage() {
     val image = painterResource(R.drawable.ic_task_completed)
     Image(painter = image, contentDescription = null)
@@ -44,12 +67,11 @@ fun TaskCompletedImage() {
 @Composable
 fun TaskCompletedText(title: String, subtitle: String) {
     Column(
-        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(title)
-        Text(subtitle)
+        Text(title, fontWeight = FontWeight.Bold)
+        Text(subtitle, fontSize = 16.sp)
     }
 }
 
@@ -58,10 +80,6 @@ fun TaskCompletedText(title: String, subtitle: String) {
 @Composable
 fun TaskManagerPreview() {
     ComposeBasicsTheme {
-        TaskCompletedImage()
-        TaskCompletedText(
-            stringResource(R.string.all_tasks_completed),
-            stringResource(R.string.nice_work)
-        )
+        TaskCompletedLayout()
     }
 }
