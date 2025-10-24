@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -41,7 +42,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ComposeQuadrant(title: String, body: String, color: Long, modifier: Modifier = Modifier) {
     Column(
-        modifier
+        modifier = modifier
+            .fillMaxSize()
             .background(Color(color))
             .padding(16.dp),
         Arrangement.Center,
@@ -58,8 +60,8 @@ fun ComposeQuadrant(title: String, body: String, color: Long, modifier: Modifier
 }
 
 @Composable
-fun ComposeQuadrantRow() {
-    Row (Modifier.fillMaxWidth()){
+fun ComposeQuadrantRow(modifier: Modifier = Modifier) {
+    Row (modifier){
         ComposeQuadrant(
             "Text composable",
             "Displays text and follows the recommended Material Design guidelines.",
@@ -73,14 +75,20 @@ fun ComposeQuadrantRow() {
             modifier = Modifier.weight(1f)
         )
     }
-
 }
 
+@Composable
+fun ComposeQuadrantColumn(){
+    Column(Modifier.fillMaxSize()) {
+        ComposeQuadrantRow(Modifier.weight(1f))
+        ComposeQuadrantRow(Modifier.weight(1f))
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
 fun ComposeQuadrantPreview() {
     ComposeBasicsTheme {
-        ComposeQuadrantRow()
+        ComposeQuadrantColumn()
     }
 }
