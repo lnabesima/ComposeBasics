@@ -8,9 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -32,7 +30,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeBasicsTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
-                    Column(modifier = Modifier.padding(it)) {}
+                    Column(modifier = Modifier.padding(it)) {
+                        ComposeQuadrantColumn()
+                    }
                 }
             }
         }
@@ -60,28 +60,46 @@ fun ComposeQuadrant(title: String, body: String, color: Long, modifier: Modifier
 }
 
 @Composable
-fun ComposeQuadrantRow(modifier: Modifier = Modifier) {
-    Row (modifier){
+fun ComposeQuadrantRow(
+    firstTitle: String,
+    firstBody: String,
+    firstColor: Long,
+    secondTitle: String,
+    secondBody: String,
+    secondColor: Long,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier) {
         ComposeQuadrant(
-            "Text composable",
-            "Displays text and follows the recommended Material Design guidelines.",
-            0xFFEADDFF,
+            firstTitle, firstBody, firstColor,
             modifier = Modifier.weight(1f)
         )
         ComposeQuadrant(
-            "Image composable",
-            "Creates a composable that lays out and draws a given Painter class object.",
-            0xFFD0BCFF,
+            secondTitle, secondBody, secondColor,
             modifier = Modifier.weight(1f)
         )
     }
 }
 
 @Composable
-fun ComposeQuadrantColumn(){
+fun ComposeQuadrantColumn() {
     Column(Modifier.fillMaxSize()) {
-        ComposeQuadrantRow(Modifier.weight(1f))
-        ComposeQuadrantRow(Modifier.weight(1f))
+        ComposeQuadrantRow(
+            "Text composable",
+            "Displays text and follows the recommended Material Design guidelines.",
+            0xFFEADDFF, "Image composable",
+            "Creates a composable that lays out and draws a given Painter class object.",
+            0xFFD0BCFF, Modifier.weight(1f)
+        )
+        ComposeQuadrantRow(
+            "Row composable",
+            "A layout composable that places its children in a horizontal sequence.",
+            0xFFB69DF8,
+            "Column composable",
+            "A layout composable that places its children in a vertical sequence.",
+            0xFFF6EDFF,
+            Modifier.weight(1f)
+        )
     }
 }
 
